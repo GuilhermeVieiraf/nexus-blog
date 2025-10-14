@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Nexus</title>
+</head>
+<body>
+<h1>Login</h1>
+
+<div th:if="${param.error}">
+    <p style="color: red;">Nome de utilizador ou senha inválidos.</p>
+</div>
+
+<div th:if="${param.logout}">
+    <p>Você saiu com sucesso.</p>
+</div>
+
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="username">Nome de Utilizador:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+        <button type="submit">Entrar</button>
+    </div>
+</form>
+
+<p>Ainda não tem uma conta? <a th:href="@{/register}">Registe-se aqui</a>.</p>
+</body>
+</html>
