@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao Nexus</title>
+</head>
+<body>
+<h1 th:text="'Bem-vindo, ' + ${username} + '!'">Olá, Utilizador!</h1>
+<p>Você está autenticado no sistema.</p>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sair (Logout)</button>
+</form>
+</body>
+</html>
