@@ -1,5 +1,6 @@
 package com.nexus.nexus_blog.service;
 
+import com.nexus.nexus_blog.dto.UserRegistrationDto;
 import com.nexus.nexus_blog.model.User;
 import com.nexus.nexus_blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,15 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+    public User createUser(UserRegistrationDto userDto) {
+        User newUser = new User();
+        newUser.setUsername(userDto.username());
+        newUser.setEmail(userDto.email());
 
-        return userRepository.save(user);
+        String encodedPassword = passwordEncoder.encode(userDto.password());
+        newUser.setPassword(encodedPassword);
+
+        return userRepository.save(newUser);
     }
 
     @Override
