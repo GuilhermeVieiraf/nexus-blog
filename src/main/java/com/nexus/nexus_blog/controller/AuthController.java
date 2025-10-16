@@ -1,6 +1,6 @@
 package com.nexus.nexus_blog.controller;
 
-import com.nexus.nexus_blog.model.User;
+import com.nexus.nexus_blog.dto.UserRegistrationDto;
 import com.nexus.nexus_blog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +21,17 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userDto", new UserRegistrationDto("", "", ""));
         return "auth/register";
     }
 
     @PostMapping("/register")
-    public String processRegistration(@Valid @ModelAttribute("user") User user,
+    public String processRegistration(@Valid @ModelAttribute("userDto") UserRegistrationDto userDto,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/register";
         }
-        userService.createUser(user);
+        userService.createUser(userDto);
         return "redirect:/login";
     }
 

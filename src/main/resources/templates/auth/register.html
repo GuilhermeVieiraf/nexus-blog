@@ -9,7 +9,7 @@
 <div class="container">
     <h1>Crie a sua conta</h1>
 
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/register}" th:object="${userDto}" method="post">
         <div>
             <label for="username">Nome de Utilizador:</label>
             <input type="text" id="username" th:field="*{username}">
