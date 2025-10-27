@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Post - Nexus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Criar Novo Post</h1>
+
+    <form th:action="@{/posts}" th:object="${postRequest}" method="post">
+        <div>
+            <label for="title">Título:</label>
+            <input type="text" id="title" th:field="*{title}">
+            <div th:if="${#fields.hasErrors('title')}" style="color: #ff5555; font-size: 0.9em;">
+                <p th:errors="*{title}"></p>
+            </div>
+        </div>
+        <div>
+            <label for="content">Conteúdo:</label>
+            <textarea id="content" th:field="*{content}" rows="10" style="width: 100%; background-color: #333; border: 1px solid #555; color: #e0e0e0; border-radius: 4px; box-sizing: border-box;"></textarea>
+            <div th:if="${#fields.hasErrors('content')}" style="color: #ff5555; font-size: 0.9em;">
+                <p th:errors="*{content}"></p>
+            </div>
+        </div>
+        <div>
+            <button type="submit">Publicar Post</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
