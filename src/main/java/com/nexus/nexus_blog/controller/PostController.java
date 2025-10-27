@@ -38,7 +38,7 @@ public class PostController {
         }
 
         try {
-            postService.cretePost(postRequestDto, principal);
+            postService.createPost(postRequestDto, principal);
         } catch (UsernameNotFoundException e) {
             return "post/create-post";
         }

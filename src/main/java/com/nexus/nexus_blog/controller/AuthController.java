@@ -1,6 +1,8 @@
 package com.nexus.nexus_blog.controller;
 
+import com.nexus.nexus_blog.dto.PostResponseDto;
 import com.nexus.nexus_blog.dto.UserRegistrationDto;
+import com.nexus.nexus_blog.service.PostService;
 import com.nexus.nexus_blog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
 
     private final UserService userService;
+    private final PostService postService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -42,7 +46,14 @@ public class AuthController {
 
     @GetMapping("/")
     public String home(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", "Visitante");
+        }
+        List<PostResponseDto> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
+
         return "home";
     }
 

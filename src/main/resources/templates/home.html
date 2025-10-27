@@ -6,11 +6,30 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1 th:text="'Bem-vindo, ' + ${username} + '!'">Olá, Utilizador!</h1>
-<p>Você está autenticado no sistema.</p>
+<div class="container">
+    <h1 th:text="'Bem-vindo, ' + ${username} + '!'">Olá, Utilizador!</h1>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Sair (Logout)</button>
-</form>
+    <div style="text-align: right; margin-bottom: 20px;">
+        <a th:href="@{/posts/new}" style="padding: 8px 15px; background-color: #4CAF50; color: white; border-radius: 4px; text-decoration: none;">+ Novo Post</a>
+    </div>
+
+    <h2>Últimos Posts</h2>
+
+    <div th:each="post : ${posts}" style="background-color: #2a2a2a; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+        <h3 th:text="${post.title}">Título do Post</h3>
+        <p th:text="${#strings.abbreviate(post.content, 150)}">Resumo do conteúdo do post...</p> <small>
+        Por: <span th:text="${post.authorUsername}">Nome do Autor</span> |
+        Em: <span th:text="${#temporals.format(post.creationDate, 'dd/MM/yyyy HH:mm')}">Data</span>
+    </small>
+    </div>
+
+    <div th:if="${#lists.isEmpty(posts)}">
+        <p>Ainda não há posts publicados. Seja o primeiro a criar um!</p>
+    </div>
+
+    <form th:action="@{/logout}" method="post" style="margin-top: 30px;">
+        <button type="submit">Sair (Logout)</button>
+    </form>
+</div>
 </body>
 </html>
