@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 public interface PostService {
 
@@ -13,4 +14,5 @@ public interface PostService {
 
     List<PostResponseDto> getAllPosts();
 
+    PostResponseDto getPostById(UUID id);
 }
