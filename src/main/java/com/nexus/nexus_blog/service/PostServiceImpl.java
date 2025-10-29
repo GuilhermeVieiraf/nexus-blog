@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +47,14 @@ public class PostServiceImpl implements PostService {
         return posts.stream()
                 .map(this::mapPostToResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PostResponseDto getPostById(UUID id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado com o ID: " + id));
+        return mapPostToResponseDto(post);
     }
 
     private PostResponseDto mapPostToResponseDto(Post post) {

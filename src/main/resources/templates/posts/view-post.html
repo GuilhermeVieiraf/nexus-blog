@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title} + ' - Nexus'">Título do Post - Nexus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Estilo adicional para o conteúdo do post manter a formatação */
+        .post-content {
+            white-space: pre-wrap; /* Preserva espaços em branco e quebras de linha */
+            word-wrap: break-word; /* Quebra palavras longas */
+            background-color: #2a2a2a; /* Fundo ligeiramente diferente */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${post.title}">Título do Post</h1>
+
+    <small>
+        Por: <span th:text="${post.authorUsername}">Autor</span> |
+        Em: <span th:text="${#temporals.format(post.creationDate, 'dd/MM/yyyy HH:mm')}">Data</span>
+    </small>
+
+    <div class="post-content" th:text="${post.content}">
+        Conteúdo do post aqui...
+    </div>
+
+    <p style="margin-top: 30px;">
+        <a th:href="@{/}">Voltar para a lista de posts</a>
+    </p>
+
+</div>
+</body>
+</html>
